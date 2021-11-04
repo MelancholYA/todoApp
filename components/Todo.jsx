@@ -11,36 +11,12 @@ import useSrorage from '../hooks/useSrorage';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
+import Icon from './Icon';
 
-const Todo = ({ type, refresh, data }) => {
-	const { deleteData } = useSrorage();
-	const renderIcon = () => {
-		switch (type) {
-			case 'High':
-				return (
-					<Feather
-						name='alert-circle'
-						color='white'
-						style={styles.icon}
-						size={20}
-					/>
-				);
-			case 'Normal':
-				return (
-					<MaterialIcons
-						color='white'
-						style={styles.icon}
-						name='label-important'
-						size={20}
-					/>
-				);
+const Todo = ({ type, refresh, data, all }) => {
+	const icons = ['shop', 'game', 'drive', 'event', 'sport', ''];
+	const { storeData } = useSrorage();
 
-			default:
-				return (
-					<AntDesign name='star' color='white' style={styles.icon} size={20} />
-				);
-		}
-	};
 	const styles = StyleSheet.create({
 		container: {
 			flexDirection: 'row',
@@ -68,22 +44,25 @@ const Todo = ({ type, refresh, data }) => {
 			textAlign: 'center',
 		},
 	});
+
 	return (
-		<TouchableOpacity
-			style={styles.container}
-			onPress={() => {
-				deleteData('todos');
-				refresh(Math.random());
-			}}>
-			{renderIcon()}
+		<View style={styles.container}>
+			<Icon name={icons[data.selectedIcon]} />
 			<Text numberOfLines={1} ellipsizeMode='tail' style={styles.main}>
 				{data.title}
 			</Text>
-			<View style={styles.date}>
-				<Text>18 jun</Text>
-				<Text>14:25</Text>
-			</View>
-		</TouchableOpacity>
+			<AntDesign
+				name='closecircleo'
+				size={24}
+				color='black'
+				onPress={() => {
+					console.log(all);
+					const newList = all.filter((single) => single.uuid !== data.uuid);
+					storeData('todos', JSON.stringify(newList));
+					refresh(Math.random());
+				}}
+			/>
+		</View>
 	);
 };
 

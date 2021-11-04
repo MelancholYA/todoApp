@@ -52,7 +52,7 @@ export default function App() {
 
 				{data === 'fetching' ? (
 					<ActivityIndicator />
-				) : !data ? (
+				) : !data || data.length === 0 ? (
 					<View
 						style={{
 							flex: 1,
@@ -79,9 +79,15 @@ export default function App() {
 				) : (
 					<ScrollView>
 						{Array.isArray(data) &&
-							data.map((todo, i) => (
-								<Todo key={i} data={todo} refresh={setRefresh} />
+							data.map((todo) => (
+								<Todo
+									key={todo.id}
+									data={todo}
+									all={data}
+									refresh={setRefresh}
+								/>
 							))}
+						<View style={{ height: 100 }}></View>
 					</ScrollView>
 				)}
 				<Footer fade={slideIn} />

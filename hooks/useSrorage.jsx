@@ -27,7 +27,11 @@ const useSrorage = () => {
 			alert('error');
 		}
 	};
-	return { getData, data, storeData, deleteData };
+	const deleteTodo = async () => {
+		await getData('todos');
+		console.log(data);
+	};
+	return { getData, data, storeData, deleteData, deleteTodo };
 };
 
 export default useSrorage;

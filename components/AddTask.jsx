@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import {
-	Button,
 	Dimensions,
-	Pressable,
 	StyleSheet,
 	Text,
 	TextInput,
@@ -15,6 +13,8 @@ import { AntDesign } from '@expo/vector-icons';
 import Icon from './Icon';
 import { LinearGradient } from 'expo-linear-gradient';
 import useSrorage from '../hooks/useSrorage';
+import 'react-native-get-random-values';
+import { v4 } from 'uuid';
 
 const AddTask = ({ out, refresh, stored }) => {
 	const { storeData } = useSrorage();
@@ -24,7 +24,7 @@ const AddTask = ({ out, refresh, stored }) => {
 	const [desc, setDesc] = useState('');
 	const [loading, setLoading] = useState(false);
 	const addTask = async () => {
-		if (!selectedIcon || !title || !desc)
+		if (selectedIcon === null || !title || !desc)
 			return alert('Please fill all the fields');
 		setLoading(true);
 		storeData(
@@ -33,6 +33,7 @@ const AddTask = ({ out, refresh, stored }) => {
 				? JSON.stringify([
 						...stored,
 						{
+							uuid: v4(),
 							title,
 							desc,
 							selectedIcon,
@@ -40,6 +41,7 @@ const AddTask = ({ out, refresh, stored }) => {
 				  ])
 				: JSON.stringify([
 						{
+							uuid: v4(),
 							title,
 							desc,
 							selectedIcon,

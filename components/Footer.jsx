@@ -8,17 +8,8 @@ const Footer = ({ fade }) => {
 	return (
 		<LinearGradient
 			// Background Linear Gradient
-			colors={['#ffffff00', '#ffffff']}
+			colors={['#ffffff00', '#000000cc']}
 			style={styles.container}>
-			<TouchableOpacity>
-				<LinearGradient
-					end={{ x: 0.9, y: 0.9 }}
-					style={{ ...styles.icon }}
-					colors={['#FE1E9A', '#FEA64C']}>
-					<AntDesign name='check' color='white' size={25} />
-				</LinearGradient>
-			</TouchableOpacity>
-
 			<TouchableOpacity onPress={() => fade()}>
 				<LinearGradient
 					end={{ x: 0.9, y: 0.9 }}
